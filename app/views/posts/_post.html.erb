@@ -1,42 +1,64 @@
 <div id="<%= dom_id post %>">
-  <p>
-    <strong>Caption:</strong>
-    <%= post.caption %>
-  </p>
 
-  <p>
-    <strong>Longitude:</strong>
-    <%= post.longitude %>
-  </p>
+  <div class="card" style="width: 25rem;">
+    <div class="card-header bg-white">
+      <div class="d-flex justify-content-between">
+        <div>
+          <% if post.user.profile_pic.attached? %>
+            <%= image_tag post.user.profile_pic, class: "img-thumbnail rounded-circle", style: "width: 10%" %>
+          <% else %>
+            <%= image_tag "user-pp.png", class: "img-thumbnail rounded-circle", style: "width: 10%" %>
+          <% end if %>
+          <span class="fw-bold mx-2"><%= post.user.username %></span>
+        </div>
 
-  <p>
-    <strong>Latitude:</strong>
-    <%= post.latitude %>
-  </p>
+        <div>
+          <div class="dropdown">
+            <a class="text-dark fs-4" style="text-decoration: none" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              ...
+            </a>
 
-  <p>
-    <strong>User:</strong>
-    <%= post.user_id %>
-  </p>
-
-  <p>
-    <strong>Allow comments:</strong>
-    <%= post.allow_comments %>
-  </p>
-
-  <p>
-    <strong>Show likes count:</strong>
-    <%= post.show_likes_count %>
-  </p>
-
-  <p>
-    <strong>Images:</strong>
-    <% post.images.each do |image| %>
-      <div>
-        <%= link_to image.filename, image %>
-        <%= image_tag image, width: "150px" %>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Edit post</a></li>
+              <li><a class="dropdown-item" href="#">Delete post</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
-    <% end %>
-  </p>
+    </div>
+
+    <div class="card-body">
+
+      <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          
+          <% post.images.each do |img| %>
+            <div class="carousel-item active">
+              <%= image_tag img , class: "d-block w-100" %>
+            </div>
+          <% end %>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <p class="card-text"><%= post.caption %></p>
+    </div>
+    <div class="card-footer">
+      Featured
+    </div>
+  </div>
 
 </div>
